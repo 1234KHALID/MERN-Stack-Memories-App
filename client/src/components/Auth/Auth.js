@@ -7,6 +7,7 @@ import { SignUp, SignIn } from '../../actions/auth.js';
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import { AUTH } from '../../constants/actionType';
+import jwt_decode from 'jwt-decode';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -26,28 +27,36 @@ const Auth = () => {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // const googleSuccess = async (res) => {
-  //   const result = res?.profileObj;
-  //   const token = res?.tokenId;
+  const googleSuccess = async (res) => {
 
-  //   console.log(result, "result", token, "token");
+    const result = jwt_decode(res.credential);
 
-  //   try {
-  //     dispatch({ type: AUTH, data: { result, token } });
-  //     navigate('/');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+    // console.log(decodedProfile, "hdshdh");
+    // console.log(window.postMessage, "window.postMessage")
+    // // const result = res?.profileObj;
+    // const token = res?.tokenId;
+    try {
+      dispatch({ type: AUTH, data: { result } });
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const googleError = (error) => {
+    console.log(error);
+    alert('Google Sign In was unsuccessful. Try again later');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isSignUp) {
       dispatch(SignUp(form, navigate));
-      setForm('')
+      setForm(initialState);
     } else {
       dispatch(SignIn(form, navigate));
+      setForm(initialState);
     }
   }
   return (
@@ -88,14 +97,17 @@ const Auth = () => {
           }} >
             {isSignUp ? "Sign UP" : "Sign In"}
           </Button>
-          {/* <GoogleOAuthProvider clientId='413826242377-g5oh7shopefp8pe3v0prms6sg6h713j2.apps.googleusercontent.com'>
+          <GoogleOAuthProvider fullWidth clientId='413826242377-g5oh7shopefp8pe3v0prms6sg6h713j2.apps.googleusercontent.com'>
             <GoogleLogin
+              type='standard'
+              theme='filled_blue'
+              width='366px'
+              text='Sign In With Google'
+              useOneTap={true}
               onSuccess={googleSuccess}
-              onError={() => {
-                alert('Google Sign In was unsuccessful. Try again later')
-              }}
+              onError={googleError}
             />
-          </GoogleOAuthProvider> */}
+          </GoogleOAuthProvider>
           <Grid container justifyContent='flex-end'>
             <Grid item>
               <Button onClick={switchMode}>

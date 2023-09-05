@@ -35,7 +35,7 @@ const Navbar = () => {
 
   return (
     <AppBar sx={{
-      borderRadius: 15,
+      borderRadius: "10px",
       margin: '30px 0',
       display: 'flex',
       flexDirection: 'row',
