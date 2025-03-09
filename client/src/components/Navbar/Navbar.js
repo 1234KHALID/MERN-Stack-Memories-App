@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useCallback } from "react";
+import { AppBar, Typography, Toolbar, Avatar, Button } from "@mui/material";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import decode from 'jwt-decode';
-import * as actionType from '../../constants/actionType';
-import memories from '../../images/memories.png';
-import { useDispatch } from 'react-redux';
+import decode from "jwt-decode";
+import * as actionType from "../../constants/actionType";
+import memories from "../../images/memories.png";
+import { useDispatch } from "react-redux";
 const Navbar = () => {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem('profile'))
-  );
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const dispatch = useDispatch();
   const location = useLocation();
-  // const history = useHistory();
+  const navigate = useNavigate();
 
-  const logout = () => {
+  const logout = useCallback(() => {
     dispatch({ type: actionType.LOGOUT });
-    // history.push('/auth');
+    navigate("/auth");
     setUser(null);
-  };
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     const token = user?.token;
@@ -30,73 +28,100 @@ const Navbar = () => {
       }
     }
 
-    setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location]);
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location, logout, user?.token]);
 
   return (
-    <AppBar sx={{
-      borderRadius: "10px",
-      margin: '30px 0',
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      padding: '10px 50px',
-    }} position='static' color='inherit'>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-      }}>
-        <Typography component={Link} to='/'
-          variant='h2'
-          align='center'
+    <AppBar
+      sx={{
+        borderRadius: "10px",
+        margin: "30px 0",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "10px 50px",
+      }}
+      position="static"
+      color="inherit"
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          component={Link}
+          to="/"
+          variant="h2"
+          align="center"
           sx={{
-            color: 'rgba(0,183,255, 1)',
-            textDecoration: 'none',
+            color: "rgba(0,183,255, 1)",
+            textDecoration: "none",
           }}
-          xs={{ display: 'none' }}
+          xs={{ display: "none" }}
         >
           Memories
         </Typography>
-        <img style={{ marginLeft: '15px' }} src={memories} alt='icon' height='60' />
+        <img
+          style={{ marginLeft: "15px" }}
+          src={memories}
+          alt="icon"
+          height="60"
+        />
       </div>
-      <Toolbar sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        width: '400px',
-      }}
+      <Toolbar
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          width: "400px",
+        }}
       >
         {user?.result ? (
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '400px',
-          }}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "400px",
+            }}
           >
-            <Avatar sx={{
-              backgroundColor: "deepskyblue",
-              color: 'white'
-            }} alt={user?.result.name} src={user?.result.imageUrl}>
+            <Avatar
+              sx={{
+                backgroundColor: "deepskyblue",
+                color: "white",
+              }}
+              alt={user?.result.name}
+              src={user?.result.imageUrl}
+            >
               {user?.result.name.charAt(0)}
             </Avatar>
-            <Typography sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }} variant='h6'>
+            <Typography
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+              variant="h6"
+            >
               {user?.result.name}
             </Typography>
-            <Button variant='contained' onClick={logout}>
+            <Button variant="contained" onClick={logout}>
               Logout
             </Button>
           </div>
         ) : (
-          <Button variant='contained' color='primary' component={Link} to='/auth'>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/auth"
+          >
             Sign In
           </Button>
         )}
       </Toolbar>
     </AppBar>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
