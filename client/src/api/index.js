@@ -9,7 +9,6 @@ API.interceptors.request.use((req) => {
   }
   return req;
 });
-// const url1 = '/user';
 
 export const fetchPosts = () => API.get("/posts");
 export const createPost = (newPost) => API.post("/posts", newPost);
