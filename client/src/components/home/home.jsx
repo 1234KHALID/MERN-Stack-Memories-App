@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Grid, Grow, Pagination, Paper } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import Posts from '../Posts/Posts';
-import Form from '../Form/Form';
+import Posts from '../posts/posts';
+import Form from '../form/form';
 import { getPosts } from '../../actions/posts';
-import Paginate from '../Pagination /Pagination';
+import Paginate from '../pagination /pagination';
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(0);

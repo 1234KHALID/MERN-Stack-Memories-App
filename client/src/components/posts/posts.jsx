@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Post from "./Post/Post";
+import Post from "./post/Post";
 import { Grid, CircularProgress } from "@mui/material";
 
 const Posts = ({ setCurrentId }) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Input from "./Input";
+import Input from "./input.jsx";
 import {
   Avatar,
   Button,
@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { SignUp, SignIn } from "../../actions/auth.js";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { AUTH } from "../../constants/actionType";
+import { AUTH } from "../../constants/actionType.js";
 import jwt_decode from "jwt-decode";
 
 const initialState = {

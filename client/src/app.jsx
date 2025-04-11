@@ -1,10 +1,10 @@
 import React from 'react'
 import { Container } from '@mui/material';
-import Home from './components/Home/Home';
-import Navbar from './components/Navbar/Navbar';
+import Home from './components/home/home';
+import Navbar from './components/navbar/navbar';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Auth from './components/Auth/Auth';
-import PostDetails from './components/PostDetails/PostDetails';
+import PostDetails from './components/post-details/post-details';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'))
