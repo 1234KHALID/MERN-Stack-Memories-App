@@ -1,27 +1,20 @@
-import React, { useState } from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Input from "./input.jsx";
-import {
-  Avatar,
-  Button,
-  Container,
-  Grid,
-  Paper,
-  Typography,
-} from "@mui/material";
-import { useDispatch } from "react-redux";
-import { SignUp, SignIn } from "../../actions/auth.js";
-import { useNavigate } from "react-router-dom";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { AUTH } from "../../constants/actionType.js";
-import jwt_decode from "jwt-decode";
+import React, { useState } from 'react';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Input from './input.jsx';
+import { Avatar, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { SignUp, SignIn } from '../../actions/auth.js';
+import { useNavigate } from 'react-router-dom';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { AUTH } from '../../constants/actionType.js';
+import jwt_decode from 'jwt-decode';
 
 const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
 };
 
 const Auth = () => {
@@ -38,15 +31,14 @@ const Auth = () => {
     setIsShow(false);
   };
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const googleSuccess = async (res) => {
     const result = jwt_decode(res.credential);
 
     try {
       dispatch({ type: AUTH, data: { result } });
-      navigate("/");
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +46,7 @@ const Auth = () => {
 
   const googleError = (error) => {
     console.log(error);
-    alert("Google Sign In was unsuccessful. Try again later");
+    alert('Google Sign In was unsuccessful. Try again later');
   };
 
   const handleSubmit = (e) => {
@@ -73,27 +65,27 @@ const Auth = () => {
       <Paper
         elevation={3}
         sx={{
-          marginTop: "20px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "15px",
+          marginTop: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '15px',
         }}
       >
         <Avatar
           sx={{
-            margin: "2px",
-            backgroundColor: "blue",
+            margin: '2px',
+            backgroundColor: 'blue',
           }}
         >
           <LockOutlinedIcon />
         </Avatar>
-        <Typography>{isSignUp ? "Sign UP" : "Sign In"}</Typography>
+        <Typography>{isSignUp ? 'Sign UP' : 'Sign In'}</Typography>
         <form
           onSubmit={handleSubmit}
           style={{
-            width: "100%",
-            marginTop: "15px",
+            width: '100%',
+            marginTop: '15px',
           }}
         >
           <Grid container spacing={2}>
@@ -106,25 +98,15 @@ const Auth = () => {
                   autoFocus
                   half
                 />
-                <Input
-                  name="lastName"
-                  label="Last Name"
-                  handleChange={handleChange}
-                  half
-                />
+                <Input name="lastName" label="Last Name" handleChange={handleChange} half />
               </>
             )}
-            <Input
-              name="email"
-              label="Email Address"
-              handleChange={handleChange}
-              type="email"
-            />
+            <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
             <Input
               name="password"
               label="Password"
               handleChange={handleChange}
-              type={isShow ? "text" : "password"}
+              type={isShow ? 'text' : 'password'}
               handleShowPassword={handleShowPassword}
             />
             {isSignUp && (
@@ -132,7 +114,7 @@ const Auth = () => {
                 name="confirmPassword"
                 label="Confirm Password"
                 handleChange={handleChange}
-                type={isShow ? "text" : "password"}
+                type={isShow ? 'text' : 'password'}
                 handleShowPassword={handleShowPassword}
               />
             )}
@@ -143,10 +125,10 @@ const Auth = () => {
             variant="contained"
             color="primary"
             sx={{
-              margin: "15px 0 10px",
+              margin: '15px 0 10px',
             }}
           >
-            {isSignUp ? "Sign UP" : "Sign In"}
+            {isSignUp ? 'Sign UP' : 'Sign In'}
           </Button>
           <GoogleOAuthProvider
             fullWidth
@@ -165,9 +147,7 @@ const Auth = () => {
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
-                {isSignUp
-                  ? "Already have an account? Sign in"
-                  : "Don't have an account ? Sign up"}
+                {isSignUp ? 'Already have an account? Sign in' : "Don't have an account ? Sign up"}
               </Button>
             </Grid>
           </Grid>

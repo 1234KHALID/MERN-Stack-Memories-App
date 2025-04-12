@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "format": "prettier --write \"client/**/*.{js,jsx,ts,tsx,json,css,md}\" \"server/**/*.{js,ts,json,md}\""
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^10.1.2",
+    "prettier": "^3.5.3"
+  }
+}

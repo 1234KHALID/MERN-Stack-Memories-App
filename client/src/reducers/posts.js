@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from "../constants/actionType";
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionType';
 
 const posts = (posts = [], action) => {
   switch (action.type) {
@@ -15,6 +15,6 @@ const posts = (posts = [], action) => {
     default:
       return posts;
   }
-}
+};
 
 export default posts;

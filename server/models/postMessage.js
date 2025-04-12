@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const postSchema = Schema({
   title: String,
@@ -17,6 +17,6 @@ const postSchema = Schema({
   },
 });
 
-var PostMessage = model("PostMessage", postSchema);
+var PostMessage = model('PostMessage', postSchema);
 
 export default PostMessage;

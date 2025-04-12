@@ -1,16 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Post from "./post/Post";
-import { Grid, CircularProgress } from "@mui/material";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Post from './post/post';
+import { Grid, CircularProgress } from '@mui/material';
 
 const Posts = ({ setCurrentId }) => {
   const posts = useSelector((state) => state.posts);
   return !posts.length ? (
     <div
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <CircularProgress />
@@ -21,8 +21,8 @@ const Posts = ({ setCurrentId }) => {
       alignItems="stretch"
       spacing={3}
       sx={{
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
       }}
     >
       {posts?.map((post) => (
