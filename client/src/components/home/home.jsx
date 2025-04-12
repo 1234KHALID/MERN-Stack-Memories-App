@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Grow, Pagination, Paper } from '@mui/material';
+import { Container, Grid, Grow, Paper, AppBar, TextField, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Posts from '../posts/posts';
 import Form from '../form/form';
 import { getPosts } from '../../actions/posts';
-import Paginate from '../pagination /pagination';
+import Pagination from '../pagination/pagination';
 
 const Home = () => {
   const [currentId, setCurrentId] = useState(0);
@@ -23,7 +24,7 @@ const Home = () => {
           <Grid item xs={12} sm={4}>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>
-              <Paginate />
+              <Pagination />
             </Paper>
           </Grid>
         </Grid>
