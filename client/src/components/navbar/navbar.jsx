@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@mui/material';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionType';
@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const logout = useCallback(() => {
@@ -29,7 +28,7 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
-  }, [location, logout, user?.token]);
+  }, [logout, user?.token]);
 
   return (
     <AppBar
