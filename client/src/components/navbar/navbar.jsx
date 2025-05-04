@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { AppBar, Typography, Toolbar, Avatar, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionType';
-import memories from '../../images/memories.png';
-import { useDispatch } from 'react-redux';
+import memoriesLogo from '../../images/memories-logo.png';
+import memoriesText from '../../images/memories-text.png';
+
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const dispatch = useDispatch();
@@ -44,27 +45,16 @@ const Navbar = () => {
       position="static"
       color="inherit"
     >
-      <div
+      <Link
+        to="/"
         style={{
           display: 'flex',
           alignItems: 'center',
         }}
       >
-        <Typography
-          component={Link}
-          to="/"
-          variant="h2"
-          align="center"
-          sx={{
-            color: 'rgba(0,183,255, 1)',
-            textDecoration: 'none',
-          }}
-          xs={{ display: 'none' }}
-        >
-          Memories
-        </Typography>
-        <img style={{ marginLeft: '15px' }} src={memories} alt="icon" height="60" />
-      </div>
+        <img src={memoriesLogo} alt="icon" height="45px" />
+        <img style={{ marginLeft: '15px' }} src={memoriesText} alt="icon" height="40px" />
+      </Link>
       <Toolbar
         sx={{
           display: 'flex',
@@ -99,7 +89,7 @@ const Navbar = () => {
             >
               {user?.result.name}
             </Typography>
-            <Button variant="contained" onClick={logout}>
+            <Button color="secondary" variant="contained" onClick={logout}>
               Logout
             </Button>
           </div>
