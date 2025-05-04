@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Grow, Paper, AppBar, TextField, Button } from '@mui/material';
+import { MuiChipsInput } from 'mui-chips-input';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Posts from '../posts/posts';
 import Form from '../form/form';
-import { getPosts } from '../../actions/posts';
+import { getPosts, getPostsBySearch } from '../../actions/posts';
 import Pagination from '../pagination/pagination';
 import useStyles from './styles';
 
@@ -21,15 +22,30 @@ const Home = () => {
   const searchQuery = query.get('searchQuery');
   const classes = useStyles();
   const [search, setSearch] = useState();
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
 
-  const handleKeyPress = (e) => {
-    if (e.key === 13) {
+  const searchPost = () => {
+    if (search?.trim() || tags) {
+      dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+    } else {
+      navigate('/');
     }
   };
+
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      searchPost();
+    }
+  };
+
+  const handleAdd = (tag) => setTags([...tags, tag]);
+
+  const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
 
   return (
     <Grow in>
@@ -54,6 +70,22 @@ const Home = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
+              <MuiChipsInput
+                style={{ margin: '10px 0' }}
+                value={tags}
+                onAddChip={handleAdd}
+                onDeleteChip={handleDelete}
+                label="Search Tags"
+                varient="outlined"
+              />
+              <Button
+                onClick={searchPost}
+                className={classes.searchButton}
+                variant="contained"
+                color="primary"
+              >
+                Search
+              </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>
