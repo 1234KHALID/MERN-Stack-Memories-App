@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
+// eslint-disable-next-line no-undef
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const auth = async (req, res, next) => {
