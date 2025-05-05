@@ -4,8 +4,11 @@ import Post from './post/post';
 import { Grid, CircularProgress } from '@mui/material';
 
 const Posts = ({ setCurrentId }) => {
-  const posts = useSelector((state) => state.posts);
-  return !posts.length ? (
+  const { posts, isLoading } = useSelector((state) => state.posts);
+
+  if (!posts.length && !isLoading) return 'No Posts';
+
+  return isLoading ? (
     <div
       style={{
         display: 'flex',

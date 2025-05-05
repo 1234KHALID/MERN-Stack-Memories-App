@@ -51,7 +51,7 @@ const Form = ({ currentId, setCurrentId }) => {
   }
 
   return (
-    <Paper sx={{ padding: '15px' }}>
+    <Paper sx={{ padding: '15px' }} elevation={6}>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Typography
           variant="h6"
