@@ -2,6 +2,7 @@ import { Paper, TextField, Typography, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import FileBase from 'react-file-base64';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createPost, updatePost } from '../../actions/posts';
 
 const Form = ({ currentId, setCurrentId }) => {
@@ -12,10 +13,11 @@ const Form = ({ currentId, setCurrentId }) => {
     selectedFile: '',
   });
   const post = useSelector((state) =>
-    currentId ? state.posts.find((message) => message._id === currentId) : null
+    currentId ? state.posts.posts.find((message) => message._id === currentId) : null
   );
   const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (post) setPostData(post);
   }, [post]);
@@ -32,7 +34,7 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (currentId === 0) {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
       clear();
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
