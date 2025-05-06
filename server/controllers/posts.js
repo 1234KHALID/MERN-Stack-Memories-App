@@ -1,9 +1,19 @@
 import { Types } from 'mongoose';
 import PostMessage from '../models/postMessage.js';
 
+export const getPostById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await PostMessage.findById(id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const getPosts = async (req, res) => {
   const { page } = req.query;
-  console.log(page, 'page');
 
   try {
     const LIMIT = 8;
@@ -24,22 +34,11 @@ export const getPostsBySearch = async (req, res) => {
 
   try {
     const title = new RegExp(searchQuery, 'i');
-    console.log(title, 'title');
 
     const posts = await PostMessage.find({
       $or: [{ title }, { tags: { $in: tags.split(',') } }],
     });
     res.status(200).json({ data: posts });
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-export const getPost = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const post = await PostMessage.findById(id);
-    res.status(200).json(post);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

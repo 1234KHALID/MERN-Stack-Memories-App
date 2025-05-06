@@ -7,6 +7,7 @@ import {
   FETCH_BY_SEARCH,
   START_LOADING,
   END_LOADING,
+  FETCH_POST_BY_ID,
 } from '../constants/actionType';
 
 const posts = (state = { isLoading: true, posts: [] }, action) => {
@@ -27,6 +28,8 @@ const posts = (state = { isLoading: true, posts: [] }, action) => {
         ...state,
         posts: action.payload.data,
       };
+    case FETCH_POST_BY_ID:
+      return { ...state, post: action.payload };
     case LIKE:
       return {
         ...state,
