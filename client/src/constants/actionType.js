@@ -5,6 +5,7 @@ export const FETCH_ALL = 'FETCH_ALL';
 export const FETCH_POST_BY_ID = 'FETCH_POST_BY_ID';
 export const FETCH_BY_SEARCH = 'FETCH_BY_SEARCH';
 export const LIKE = 'LIKE';
+export const COMMENT = 'COMMENT';
 
 export const START_LOADING = 'START_LOADING';
 export const END_LOADING = 'END_LOADING';
