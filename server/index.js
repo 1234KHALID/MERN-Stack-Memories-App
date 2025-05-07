@@ -7,11 +7,14 @@ import userRouter from './routes/user.js';
 import postRoutes from './routes/posts.js';
 
 dotenv.config();
+// eslint-disable-next-line no-undef
 const MONGO_URI = process.env.MONGO_URI;
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 5000;
 
 if (!MONGO_URI) {
   console.error('MongoDB URI is not defined.');
+  // eslint-disable-next-line no-undef
   process.exit(1);
 }
 
