@@ -45,7 +45,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container maxWidth="xl">
+      <Container maxWidth="xxl">
         <Grid
           container
           justifyContent="space-between"
